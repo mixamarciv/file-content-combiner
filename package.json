@@ -1,0 +1,54 @@
+{
+  "name": "file-content-combiner",
+  "displayName": "file-content-combiner",
+  "description": "combines content of selected files into a single text",
+  "version": "0.0.1",
+  "publisher": "mixamarciv",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:file-content-combiner.combineFiles"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "file-content-combiner.combineFiles",
+        "title": "Combine Selected Files Content",
+        "category": "File Combiner"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "file-content-combiner.combineFiles",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder == false"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.104.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
