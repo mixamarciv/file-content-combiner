@@ -1,12 +1,20 @@
-import * as vscode from 'vscode';
-import * as path from 'path';
 import * as fs from 'fs';
+import * as vscode from 'vscode';
 
-// Эта функция вызывается при активации расширения
+function isDirectorySync(filePath: string): boolean {
+    try {
+        const stat = fs.statSync(filePath);
+        return stat.isDirectory();
+    } catch (error) {
+        return false;
+    }
+}
+
+// Эта функция вызывается при активации расширения.
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "file-content-combiner" is now active!111111111111112');
+	console.log('Congratulations, your extension "file-content-combiner" is now active!');
 
-	// Регистрируем нашу команду.
+	// Регистрируем контекстную команду для списка файлов проекта.
 	let disposable = vscode.commands.registerCommand('file-content-combiner.combineFiles', async (uri: vscode.Uri, selectedUris: vscode.Uri[]) => {
 		// uri - это первый выбранный ресурс
 		// selectedUris - это массив ВСЕХ выбранных ресурсов (файлов/папок)
@@ -18,8 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Фильтруем только файлы (исключаем папки)
 		const fileUris = selectedUris.filter(uri => {
-			// Простая проверка: если у URI есть расширение, считаем его файлом
-			return path.extname(uri.fsPath) !== '';
+			return !isDirectorySync(uri.fsPath);
 		});
 
 		if (fileUris.length === 0) {
@@ -37,21 +44,18 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 }
 
-// Функция для комбинирования содержимого файлов
+// Функция для комбинирования содержимого файлов.
 async function combineFilesContent(fileUris: vscode.Uri[]): Promise<string> {
 	let result = '';
 
 	for (const uri of fileUris) {
 		try {
-			// Читаем файл используя VSCode API
 			const fileContent = await vscode.workspace.fs.readFile(uri);
-			const fileName = path.basename(uri.fsPath);
+			const filePath = vscode.workspace.asRelativePath(uri.path);
 
-			// Добавляем разделитель с именем файла
-			result += `// файл: ${fileName}\n`;
+			result += `\`\`\` файл: ${filePath}\n`;
 			result += Buffer.from(fileContent).toString('utf8');
-			result += '\n\n';
-
+			result += '```\n\n';
 		} catch (error) {
 			vscode.window.showErrorMessage(`Error reading file ${uri.fsPath}: ${error}`);
 		}
@@ -60,16 +64,13 @@ async function combineFilesContent(fileUris: vscode.Uri[]): Promise<string> {
 	return result;
 }
 
-
 // Функция для отображения результата
 function showCombinedContent(content: string) {
-	// Создаем новую вкладку (документ) в VSCode
 	const documentPromise = vscode.workspace.openTextDocument({
 		content: content,
 		language: 'plaintext'
 	});
 
-	// Показываем этот документ пользователю
 	documentPromise.then(document => {
 		vscode.window.showTextDocument(document);
 	});

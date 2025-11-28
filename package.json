@@ -2,10 +2,10 @@
   "name": "file-content-combiner",
   "displayName": "file-content-combiner",
   "description": "combines content of selected files into a single text",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "mixamarciv",
   "engines": {
-    "vscode": "^1.104.0"
+    "vscode": "^1.100.0"
   },
   "categories": [
     "Other"
@@ -41,7 +41,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.104.0",
+    "@types/vscode": "^1.100.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
