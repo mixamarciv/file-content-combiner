@@ -26,8 +26,7 @@
       "explorer/context": [
         {
           "command": "file-content-combiner.combineFiles",
-          "group": "navigation",
-          "when": "explorerResourceIsFolder == false"
+          "group": "navigation"
         }
       ]
     }

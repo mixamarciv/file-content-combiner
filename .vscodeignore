@@ -9,3 +9,8 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+.bin/**
+README build.md
+README.md
+LICENSE.txt
+workspace.code-workspace
