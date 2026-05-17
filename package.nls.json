@@ -1,0 +1,5 @@
+{
+  "extension.description": "combines content of selected files into a single text",
+  "command.title": "Combine Selected Files Content",
+  "command.category": "File Combiner"
+}

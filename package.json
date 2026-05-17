@@ -1,8 +1,8 @@
 {
   "name": "file-content-combiner",
   "displayName": "file-content-combiner",
-  "description": "combines content of selected files into a single text",
-  "version": "1.0.0",
+  "description": "%extension.description%",
+  "version": "1.0.1",
   "publisher": "mixamarciv",
   "engines": {
     "vscode": "^1.100.0"
@@ -18,8 +18,8 @@
     "commands": [
       {
         "command": "file-content-combiner.combineFiles",
-        "title": "Combine Selected Files Content",
-        "category": "File Combiner"
+        "title": "%command.title%",
+        "category": "%command.category%"
       }
     ],
     "menus": {
